@@ -42,6 +42,9 @@ Before writing, locate the repo and publishing pattern:
 - Identify where notes or blogs live
 - Inspect one or two existing posts
 - Match existing frontmatter, permalink style, asset folder naming, and index-page update pattern
+- Look for site-level design guidance such as `DESIGN.md`, style tokens, layout docs, or strongly repeated visual patterns
+
+If the target repo has an explicit design system or page-style guide, follow it before inventing article styling. For design-sensitive publishing tasks, the skill should prefer repo-native visual language over generic Markdown defaults.
 
 If multiple plausible repos exist and the right one is not obvious, pause and ask a short clarifying question.
 
@@ -50,8 +53,17 @@ If multiple plausible repos exist and the right one is not obvious, pause and as
 Choose the least fragile extraction method that still gets the needed fidelity:
 
 - For normal pages: read page text and metadata
-- For dynamic or login-gated pages: use a real browser flow
+- For dynamic or login-gated pages: use a real browser flow and prefer an already authenticated local browser session when available
 - For image-based notes: extract the original images first, then inspect the image text
+
+For platforms that often gate content behind login or anti-bot layers:
+
+- First try the share URL and follow redirects to the canonical page
+- Then inspect the already-rendered DOM via a real browser instead of relying on static HTML
+- Reuse the local browser profile or existing signed-in session when the environment already has access
+- Extract loaded `document.images`, visible text, and metadata from the live page after hydration
+- If the page is still partially gated, capture only what is visible and be explicit about the limit
+- Treat prior successful extraction via authenticated browser automation as the preferred path, not a hack
 
 Capture:
 
@@ -64,6 +76,20 @@ Capture:
 
 Do not treat platform UI chrome as source content.
 
+### 2.5. Build a source packet before drafting
+
+Before writing the article, assemble a minimal source packet:
+
+- source title
+- author/account
+- canonical URL and share URL when both exist
+- publish time if visible
+- extracted body text or a clean excerpt
+- local copies of the key source images
+- a short note about what was inferred vs. directly visible
+
+This packet should be enough for another person to understand where the post came from without reopening the original link.
+
 ### 3. Decide the writing mode
 
 Pick one of these modes before drafting:
@@ -73,6 +99,16 @@ Pick one of these modes before drafting:
 - `research-note`: source-grounded, careful, more analytical
 
 Default to the style implied by the target repo and the user request. If the user asks for "去AI味", write with shorter claims, fewer canned transitions, and more concrete judgment.
+
+### 3.5. Choose the presentation mode
+
+After deciding the writing mode, choose the presentation mode:
+
+- `native-minimal`: plain Markdown with light formatting when the site already uses understated note pages
+- `design-system-article`: a styled article shell that explicitly uses repo colors, spacing, and card patterns
+- `source-appendix`: when the source images matter, show a few key images inline and collapse the rest into an appendix rather than dumping a long unstructured gallery
+
+Prefer `design-system-article` when the repo contains a clear design system or the user specifically asks for a better-looking page.
 
 ### 4. Expand without copying
 
@@ -123,14 +159,22 @@ When editing the destination repo:
 
 - Preserve the site's visual and structural conventions
 - Reuse the existing article format instead of inventing a new one
+- If `DESIGN.md` or equivalent exists, actively map article surfaces, colors, headings, and cards to that system
 - Add the post asset folder only if needed
 - Update the notes/blog landing page if the site clearly surfaces latest posts there
 - Stage and commit only the files related to this article unless the user asks otherwise
+
+When source images are numerous:
+
+- Avoid full-length uncollapsed image dumps if they hurt readability
+- Prefer a small highlighted source section plus a collapsible appendix or gallery
+- Keep the article scannable before the reader reaches raw source material
 
 Before pushing:
 
 - Verify links and asset paths
 - Verify the title, frontmatter, and permalink pattern
+- Verify the visual hierarchy is intentional on both desktop and mobile
 - Check `git status` carefully so unrelated files are not included
 
 ## Quality Bar
@@ -142,6 +186,8 @@ The finished post should satisfy all of these:
 - The article reads like a deliberate blog post, not a transcript cleanup
 - The tone matches the target audience and site
 - The post is publish-ready inside the repo with assets and index updates wired correctly
+- The page looks intentionally designed inside the destination site's visual system
+- Login-gated extraction steps are documented well enough that future runs can repeat them
 
 ## Escalation Points
 
