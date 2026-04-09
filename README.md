@@ -23,7 +23,8 @@ When triggered, the skill guides Codex to:
 5. expand the source into an original blog post
 6. preserve attribution and source links
 7. wire the post into the destination repo
-8. verify git hygiene before commit/push
+8. run a quick visual inspection against existing site pages
+9. verify git hygiene before commit/push
 
 ## What changed in the updated workflow
 
@@ -34,6 +35,9 @@ This version is opinionated about two things that matter in real use:
 
 - Login-aware extraction:
   For Douyin and similar platforms, the skill should prefer a real browser flow, reuse the existing signed-in session when available, inspect the hydrated DOM, and extract loaded images and visible text from the rendered page.
+
+- Visual inspection before publish:
+  The skill should compare the new page with one or two existing posts from the same site and catch practical rendering issues before push, especially around tables, image captions, grids, callouts, and mobile stacking.
 
 ## Install
 

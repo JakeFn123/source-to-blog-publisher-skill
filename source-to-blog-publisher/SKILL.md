@@ -175,6 +175,8 @@ Before pushing:
 - Verify links and asset paths
 - Verify the title, frontmatter, and permalink pattern
 - Verify the visual hierarchy is intentional on both desktop and mobile
+- Run a visual audit against at least one or two existing posts from the same site and check for obvious issues such as broken grids, uncaught table styling, image-caption misalignment, oversized callouts, or sections that feel visually inconsistent
+- When possible, inspect the rendered page in a browser or via screenshots rather than relying only on raw Markdown
 - Check `git status` carefully so unrelated files are not included
 
 ## Quality Bar
@@ -187,6 +189,7 @@ The finished post should satisfy all of these:
 - The tone matches the target audience and site
 - The post is publish-ready inside the repo with assets and index updates wired correctly
 - The page looks intentionally designed inside the destination site's visual system
+- The page has passed a basic visual inspection, not just a content review
 - Login-gated extraction steps are documented well enough that future runs can repeat them
 
 ## Escalation Points
