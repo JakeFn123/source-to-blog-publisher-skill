@@ -30,7 +30,7 @@ When triggered, the skill guides Codex to:
 This version is opinionated about two things that matter in real use:
 
 - Design-aware publishing:
-  If the destination repo has `DESIGN.md`, layout tokens, or a clear visual system, the skill should use that system rather than producing a generic Markdown page.
+  The skill should first match the destination repo's existing note pages. If `DESIGN.md` exists, it should be treated as a supporting constraint, not a reason to make one article visually inconsistent with the rest of the blog.
 
 - Login-aware extraction:
   For Douyin and similar platforms, the skill should prefer a real browser flow, reuse the existing signed-in session when available, inspect the hydrated DOM, and extract loaded images and visible text from the rendered page.

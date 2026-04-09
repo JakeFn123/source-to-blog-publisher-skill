@@ -44,7 +44,7 @@ Before writing, locate the repo and publishing pattern:
 - Match existing frontmatter, permalink style, asset folder naming, and index-page update pattern
 - Look for site-level design guidance such as `DESIGN.md`, style tokens, layout docs, or strongly repeated visual patterns
 
-If the target repo has an explicit design system or page-style guide, follow it before inventing article styling. For design-sensitive publishing tasks, the skill should prefer repo-native visual language over generic Markdown defaults.
+If the target repo already has multiple published notes or blogs, treat those pages as the primary style reference. Use `DESIGN.md` or other design docs as supporting constraints, not as permission to make a single article visually inconsistent with the rest of the blog.
 
 If multiple plausible repos exist and the right one is not obvious, pause and ask a short clarifying question.
 
@@ -108,7 +108,7 @@ After deciding the writing mode, choose the presentation mode:
 - `design-system-article`: a styled article shell that explicitly uses repo colors, spacing, and card patterns
 - `source-appendix`: when the source images matter, show a few key images inline and collapse the rest into an appendix rather than dumping a long unstructured gallery
 
-Prefer `design-system-article` when the repo contains a clear design system or the user specifically asks for a better-looking page.
+Prefer `design-system-article` only when it still matches the site's existing note pages. If the rest of the blog is lighter, quieter, or more editorial, stay within that mode.
 
 ### 4. Expand without copying
 
