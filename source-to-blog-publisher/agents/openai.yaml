@@ -1,0 +1,4 @@
+interface:
+  display_name: "Source to Blog Publisher"
+  short_description: "Turn a source link into a cited blog post"
+  default_prompt: "Use $source-to-blog-publisher to turn this source link into a cited blog post and publish it."

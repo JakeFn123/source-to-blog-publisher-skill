@@ -1,0 +1,157 @@
+---
+name: source-to-blog-publisher
+description: Use this skill when the user wants to turn one or more source links into a cited blog post, technical note, or GitHub Pages article, especially when the job includes extracting source text or images, expanding the content into an original post, fitting an existing site structure, updating index pages, and publishing via git/GitHub.
+---
+
+# Source To Blog Publisher
+
+## Overview
+
+This skill handles the end-to-end job of taking a source link and turning it into a publishable blog post with attribution. Use it when the work includes source extraction, rewriting and expansion, repo-aware publishing, and optional git push.
+
+## When To Use
+
+Trigger this skill when the user asks for things like:
+
+- "Turn this link into a blog post"
+- "Write a note based on this article/video/post and publish it"
+- "Extract the images/text from this page and expand it into a technical note"
+- "Post this as a GitHub note / GitHub Pages blog"
+- "整理成博客并发布"
+
+Use it for source types such as:
+
+- Public webpages and articles
+- Social posts and image notes
+- Video or note pages where text must be extracted from page content or images
+- Threads where the user wants a cited secondary write-up rather than a verbatim copy
+
+Do not use this skill for:
+
+- Pure summarization of text already pasted by the user
+- General copyediting with no publishing step
+- Cases where the user only wants raw scraping output and no post
+
+## Workflow
+
+### 1. Resolve the target publishing repo first
+
+Before writing, locate the repo and publishing pattern:
+
+- Find the likely site repo
+- Identify where notes or blogs live
+- Inspect one or two existing posts
+- Match existing frontmatter, permalink style, asset folder naming, and index-page update pattern
+
+If multiple plausible repos exist and the right one is not obvious, pause and ask a short clarifying question.
+
+### 2. Extract the source content
+
+Choose the least fragile extraction method that still gets the needed fidelity:
+
+- For normal pages: read page text and metadata
+- For dynamic or login-gated pages: use a real browser flow
+- For image-based notes: extract the original images first, then inspect the image text
+
+Capture:
+
+- Original title
+- Author or account name if visible
+- Source URL
+- Publish time if visible
+- Key text from the source
+- Source images if they are part of the argument
+
+Do not treat platform UI chrome as source content.
+
+### 3. Decide the writing mode
+
+Pick one of these modes before drafting:
+
+- `technical-note`: explanatory, structured, practical
+- `founder-note`: direct, opinionated, operator-focused
+- `research-note`: source-grounded, careful, more analytical
+
+Default to the style implied by the target repo and the user request. If the user asks for "去AI味", write with shorter claims, fewer canned transitions, and more concrete judgment.
+
+### 4. Expand without copying
+
+The post should be an original write-up built from the source, not a rewrite that hugs the original wording.
+
+Safe structure:
+
+1. State the source claim or framing
+2. Extract the core mechanism or example
+3. Extend it with domain reasoning, tradeoffs, and practical interpretation
+4. Add actionable templates, checklists, or examples if useful
+5. End with a concise source note and scope disclaimer
+
+Prefer:
+
+- Interpretation
+- Reframing
+- Practical expansion
+- Comparisons and edge cases
+
+Avoid:
+
+- Long verbatim source copying
+- Claiming facts not supported by the source unless clearly marked as your extension
+- Passing off the source author's wording as original prose
+
+## Attribution Rules
+
+Always include:
+
+- Source author/account when available
+- Source title when available
+- Direct source URL
+
+When source images are used:
+
+- Store them under the post asset folder
+- Mention that the article is based on or cites the original image note
+
+If some interpretation goes beyond the source, make that visible with phrasing like:
+
+- "Based on that example, a more complete startup version is..."
+- "The original image stops at X; below is the practical extension..."
+
+## Repo-Aware Publishing Rules
+
+When editing the destination repo:
+
+- Preserve the site's visual and structural conventions
+- Reuse the existing article format instead of inventing a new one
+- Add the post asset folder only if needed
+- Update the notes/blog landing page if the site clearly surfaces latest posts there
+- Stage and commit only the files related to this article unless the user asks otherwise
+
+Before pushing:
+
+- Verify links and asset paths
+- Verify the title, frontmatter, and permalink pattern
+- Check `git status` carefully so unrelated files are not included
+
+## Quality Bar
+
+The finished post should satisfy all of these:
+
+- A reader can tell what the original source was
+- A reader can tell what is extension vs. what came from the source
+- The article reads like a deliberate blog post, not a transcript cleanup
+- The tone matches the target audience and site
+- The post is publish-ready inside the repo with assets and index updates wired correctly
+
+## Escalation Points
+
+Pause and confirm with the user if:
+
+- The correct publishing repo is ambiguous
+- The source is inaccessible or too incomplete to support a credible post
+- The user wants strong factual claims that cannot be verified from the source
+- The user wants a full legal, medical, or financial advisory article based on a weak source
+
+## References
+
+- For final pre-publish checks and frontmatter consistency, read [references/publishing-checklist.md](references/publishing-checklist.md).
